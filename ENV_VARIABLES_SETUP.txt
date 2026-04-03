@@ -1,0 +1,358 @@
+================================================================================
+VERCEL ENVIRONMENT VARIABLES - DETAILED SETUP
+================================================================================
+
+What are Environment Variables?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Settings that control how your app runs. Think of them as:
+- Configuration without changing code
+- Secure storage for sensitive info
+- Different settings for different environments (dev vs production)
+
+
+================================================================================
+DO I NEED ENVIRONMENT VARIABLES?
+================================================================================
+
+For BASIC deployment: NO (optional)
+For PRODUCTION deployment: YES (recommended)
+
+
+================================================================================
+RECOMMENDED ENVIRONMENT VARIABLES
+================================================================================
+
+Variable 1: FLASK_ENV
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Name:  FLASK_ENV
+Value: production
+
+What it does:
+- Disables debug mode
+- Better performance
+- More secure
+- Hides error details (safer)
+
+When to use: RECOMMENDED for live app
+
+
+Variable 2: PYTHONUNBUFFERED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Name:  PYTHONUNBUFFERED
+Value: 1
+
+What it does:
+- Shows Python output in real-time
+- Helps with debugging
+- See logs immediately
+
+When to use: OPTIONAL but recommended
+
+
+Variable 3: FLASK_DEBUG
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Name:  FLASK_DEBUG
+Value: 0
+
+What it does:
+- Turns OFF debug mode
+- 1 = debug ON (development)
+- 0 = debug OFF (production)
+
+When to use: For production (value = 0)
+
+
+================================================================================
+STEP-BY-STEP: HOW TO ADD ENVIRONMENT VARIABLES
+================================================================================
+
+⚠️  DO THIS AFTER FIRST DEPLOYMENT IS SUCCESSFUL!
+
+STEP 1: Go to Vercel Dashboard
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Go to: https://vercel.com/dashboard
+2. Login if needed
+3. You'll see all your projects
+
+
+STEP 2: Click Your Project
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Click: "loan-prediction-system" project
+
+
+STEP 3: Go to Settings
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Click: Settings tab (top menu)
+
+
+STEP 4: Find Environment Variables
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Left sidebar menu:
+- General
+- Git
+- Environment Variables ← CLICK HERE
+- Domains
+- SSL/TLS
+- Functions
+- Data Cache
+
+
+STEP 5: Add First Variable (FLASK_ENV)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Click: "Add New" or "+" button
+2. Fill in:
+   - Key: FLASK_ENV
+   - Value: production
+3. Select Environment: All (Production, Preview, Development)
+4. Click: Add
+
+
+STEP 6: Add Second Variable (Optional - PYTHONUNBUFFERED)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Click: "Add New"
+2. Fill in:
+   - Key: PYTHONUNBUFFERED
+   - Value: 1
+3. Select Environment: All
+4. Click: Add
+
+
+STEP 7: Add Third Variable (Optional - FLASK_DEBUG)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Click: "Add New"
+2. Fill in:
+   - Key: FLASK_DEBUG
+   - Value: 0
+3. Select Environment: Production only
+4. Click: Add
+
+
+STEP 8: Redeploy to Apply Changes
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Click: Deployments tab
+2. Find latest deployment
+3. Click: "Redeploy"
+4. Click: "Redeploy" confirmation
+5. Wait for rebuild...
+
+
+STEP 9: Verify in Logs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Click: Deployments tab
+2. Click: Your redeployment
+3. Click: Logs
+4. You should see: App running with new settings
+
+
+================================================================================
+ALTERNATE: ADD VARIABLES DURING INITIAL DEPLOYMENT
+================================================================================
+
+If you want to add them BEFORE first deployment:
+
+On the "New Project" page (where Deploy button is):
+
+1. Scroll down to: "Environment Variables"
+2. Click: Expand ▶
+3. Add each variable:
+   - FLASK_ENV: production
+   - PYTHONUNBUFFERED: 1
+   - FLASK_DEBUG: 0
+4. Click: Add
+5. Then click: Deploy
+
+
+================================================================================
+FINAL ENVIRONMENT VARIABLES CHECKLIST
+================================================================================
+
+After adding all variables, you should have:
+
+✓ FLASK_ENV = production
+✓ PYTHONUNBUFFERED = 1        (optional)
+✓ FLASK_DEBUG = 0             (optional)
+✓ All set to: "All" or Production
+✓ Redeployed after adding
+
+
+================================================================================
+WHAT THESE VARIABLES DO IN YOUR APP
+================================================================================
+
+FLASK_ENV = production:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before (development):
+- Shows detailed error pages
+- Auto-reloads on code changes
+- Slower
+- Shows sensitive info
+
+After (production):
+- Shows generic error page
+- No auto-reload
+- Faster
+- Hidden sensitive info
+- More secure
+
+
+PYTHONUNBUFFERED = 1:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before:
+- Buffered output
+- Logs delayed
+
+After:
+- Real-time logs
+- Immediate visibility
+
+
+FLASK_DEBUG = 0:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before (Debug = 1):
+- Debug mode enabled
+- Interactive debugger on errors
+
+After (Debug = 0):
+- Debug mode disabled
+- Normal error handling
+
+
+================================================================================
+YOUR CURRENT SETUP (vercel.json)
+================================================================================
+
+Already includes in code:
+
+"env": {
+  "FLASK_ENV": "production"
+}
+
+This means FLASK_ENV is already set to production by default!
+
+You can still override via dashboard if needed.
+
+
+================================================================================
+ENVIRONMENT-SPECIFIC VARIABLES
+================================================================================
+
+You can set different values for different environments:
+
+Environment Options:
+- Production: Main live app
+- Preview: Pull request previews
+- Development: Local testing
+
+Example - FLASK_DEBUG:
+- Production: 0 (off)
+- Preview: 1 (on)
+- Development: 1 (on)
+
+
+How to set per-environment:
+1. Add variable
+2. At bottom: Select "Production" / "Preview" / "Development"
+3. Different values for different environments
+
+
+================================================================================
+SECRET VARIABLES (If you had API keys, passwords)
+================================================================================
+
+For sensitive data (passwords, API keys):
+
+1. Use a "Secret" toggle (if available)
+2. Check the lock icon 🔒
+3. Value is encrypted
+4. Not visible in git
+5. Not shown in logs
+
+
+For your app: None needed (no API keys, secrets)
+
+
+================================================================================
+TROUBLESHOOTING ENVIRONMENT VARIABLES
+================================================================================
+
+App still broken after adding variables?
+
+CHECK:
+1. Variables actually saved?
+   Go back to Settings → Env Vars → Verify listed
+
+2. Redeployed after adding?
+   Go to Deployments → Check latest status
+
+3. App crashed?
+   Deployments → Latest → View Logs → Look for errors
+
+4. Wrong value?
+   Double-check spelling:
+   - FLASK_ENV (not flask_env)
+   - PYTHONUNBUFFERED (exact spelling)
+
+5. Rollback if broken:
+   Deployments → Previous working deploy → Promote
+
+
+================================================================================
+TYPICAL DEPLOYMENT WITH ENV VARS (Complete Flow)
+================================================================================
+
+1. Create project on Vercel ✓
+2. Import GitHub repo ✓
+3. Configure settings (Flask, root directory) ✓
+4. OPTION A: Click Deploy
+   → Wait 2-3 minutes
+   → App live!
+5. OPTION B: Add Env Vars first
+   → Add FLASK_ENV = production
+   → Click Deploy
+   → Wait 2-3 minutes
+   → App live with production settings!
+6. After live, test
+7. If works: Share URL!
+8. If broken: Check logs → Fix → Redeploy
+
+
+================================================================================
+YOUR NEXT STEPS
+================================================================================
+
+1. ✅ Deploy basic app first (CLICK DEPLOY NOW)
+2. ⏳ Wait for deployment to complete
+3. ✅ Test basic functionality
+4. (Optional) Add environment variables
+5. (Optional) Redeploy with production settings
+6. ✅ Share URL with professor!
+
+
+================================================================================
+REMEMBER
+================================================================================
+
+✓ App will work without environment variables
+✓ Environment variables just optimize production settings
+✓ All files already in GitHub - Vercel auto-uses them
+✓ You can always add/change variables later
+✓ Your app auto-redeploys on every git push
+
+
+JUST DEPLOY NOW! Everything is ready! 🚀

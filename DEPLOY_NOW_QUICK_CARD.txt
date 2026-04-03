@@ -1,0 +1,96 @@
+================================================================================
+VERCEL DEPLOYMENT - QUICK REFERENCE CARD
+================================================================================
+
+RIGHT NOW ON YOUR SCREEN:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Project Name:           ✓ loan-prediction-system
+Application Preset:     ✓ Flask
+Root Directory:         ✓ ./
+Importing from GitHub:  ✓ Gk091202/loan-prediction-system
+
+
+YOUR ACTION:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👉 CLICK: "Deploy" Button
+
+
+WAIT FOR:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⏳ 2-3 minutes
+
+
+RESULT:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ "Congratulations! Your project has been successfully deployed"
+
+
+YOUR LIVE URL:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+https://loan-prediction-system-[something].vercel.app
+
+
+TEST YOUR APP:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Open the live URL
+2. Fill form with test data
+3. Click "Predict"
+4. See Approved/Rejected result
+
+
+ENVIRONMENT VARIABLES (OPTIONAL - Add Later):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After deployment, go to project Settings → Environment Variables:
+
+FLASK_ENV = production        (Recommended)
+PYTHONUNBUFFERED = 1          (Optional)
+FLASK_DEBUG = 0               (Optional)
+
+Then: Deployments → Redeploy latest
+
+
+DATA FOR TESTING:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Gender:             Male
+Married:            Yes
+Dependents:         2
+Education:          Graduate
+Self Employed:      No
+Applicant Income:   50000
+Loan Amount:        25000
+Credit History:     1
+
+
+REQUIRED FILES (Already Pushed):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ app.py                 (Flask backend)
+✓ model.pkl              (Trained model)
+✓ encoders.pkl           (Encoders)
+✓ le_target.pkl          (Target encoder)
+✓ requirements.txt       (Dependencies)
+✓ vercel.json           (Config)
+✓ templates/index.html   (Form)
+✓ static/style.css       (Styling)
+
+
+GITHUB REPO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+https://github.com/Gk091202/loan-prediction-system
+
+
+THAT'S IT! 🎉
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Your app will be LIVE on the internet!
+Share the URL with anyone!
+No installation needed!
