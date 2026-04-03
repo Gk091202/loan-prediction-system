@@ -16,6 +16,7 @@ app = Flask(__name__)
 model = None
 encoders = None
 le_target = None
+models_loaded = False
 
 # Step 4: Load the trained model and encoders on startup
 def load_model_and_encoders():
@@ -53,6 +54,30 @@ def home():
     When user visits localhost:5000, this function runs.
     It displays the HTML form (index.html).
     """
+    global model, encoders, le_target, models_loaded
+    
+    # Load models on first request if not loaded (for Vercel compatibility)
+    if not models_loaded:
+        try:
+            print("Loading model...")
+            with open('model.pkl', 'rb') as f:
+                model = pickle.load(f)
+            print("✓ Model loaded successfully!")
+            
+            print("Loading encoders...")
+            with open('encoders.pkl', 'rb') as f:
+                encoders = pickle.load(f)
+            print("✓ Encoders loaded successfully!")
+            
+            print("Loading target encoder...")
+            with open('le_target.pkl', 'rb') as f:
+                le_target = pickle.load(f)
+            print("✓ Target encoder loaded successfully!")
+            models_loaded = True
+        except Exception as e:
+            print(f"Warning: Could not pre-load models: {e}")
+            # Don't fail on home page, models will load on first prediction
+    
     return render_template('index.html')
 
 # Step 6: Define prediction route (handles form submission)
@@ -61,19 +86,39 @@ def predict():
     """
     When user submits the form, this function receives the data,
     preprocesses it, and makes a prediction.
-    
-    Expected data format (JSON):
-    {
-        "gender": "Male",
-        "married": "Yes",
-        "dependents": "2",
-        "education": "Graduate",
-        "self_employed": "No",
-        "applicant_income": 5000,
-        "loan_amount": 1500,
-        "credit_history": "1"
-    }
     """
+    
+    global model, encoders, le_target, models_loaded
+    
+    # Load models if not already loaded (important for Vercel!)
+    if not models_loaded:
+        try:
+            print("Loading model...")
+            with open('model.pkl', 'rb') as f:
+                model = pickle.load(f)
+            print("✓ Model loaded successfully!")
+            
+            print("Loading encoders...")
+            with open('encoders.pkl', 'rb') as f:
+                encoders = pickle.load(f)
+            print("✓ Encoders loaded successfully!")
+            
+            print("Loading target encoder...")
+            with open('le_target.pkl', 'rb') as f:
+                le_target = pickle.load(f)
+            print("✓ Target encoder loaded successfully!")
+            models_loaded = True
+            
+        except FileNotFoundError as e:
+            return jsonify({
+                'success': False,
+                'error': f'Model files not found: {str(e)}. Please ensure model.pkl, encoders.pkl, and le_target.pkl are in the project directory.'
+            }), 500
+        except Exception as e:
+            return jsonify({
+                'success': False,
+                'error': f'Failed to load models: {str(e)}'
+            }), 500
     
     try:
         # Get data from the form submitted by JavaScript
