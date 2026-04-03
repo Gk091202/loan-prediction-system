@@ -79,22 +79,58 @@ def predict():
         # Get data from the form submitted by JavaScript
         data = request.get_json()
         
-        # Step 6a: Extract form inputs
+        # Validate that data was received
+        if data is None:
+            return jsonify({
+                'success': False,
+                'error': 'No data received. Please check your form submission.'
+            }), 400
+        
+        # Step 6a: Extract form inputs with validation
         gender = data.get('gender')
         married = data.get('married')
-        dependents = int(data.get('dependents'))
+        dependents = data.get('dependents')
         education = data.get('education')
         self_employed = data.get('self_employed')
-        applicant_income = int(data.get('applicant_income'))
-        loan_amount = int(data.get('loan_amount'))
-        credit_history = int(data.get('credit_history'))
+        applicant_income = data.get('applicant_income')
+        loan_amount = data.get('loan_amount')
+        credit_history = data.get('credit_history')
+        
+        # Validate all fields are present
+        required_fields = ['gender', 'married', 'dependents', 'education', 'self_employed', 
+                          'applicant_income', 'loan_amount', 'credit_history']
+        missing_fields = [field for field in required_fields if data.get(field) is None]
+        
+        if missing_fields:
+            return jsonify({
+                'success': False,
+                'error': f'Missing fields: {", ".join(missing_fields)}'
+            }), 400
+        
+        # Convert to appropriate types
+        try:
+            dependents = int(dependents)
+            applicant_income = int(applicant_income)
+            loan_amount = int(loan_amount)
+            credit_history = int(credit_history)
+        except (ValueError, TypeError) as e:
+            return jsonify({
+                'success': False,
+                'error': f'Invalid data types: {str(e)}'
+            }), 400
         
         # Step 6b: Encode categorical variables using saved encoders
         # Convert text values to numbers using the encoders trained on training data
-        gender_encoded = encoders['Gender'].transform([gender])[0]
-        married_encoded = encoders['Married'].transform([married])[0]
-        education_encoded = encoders['Education'].transform([education])[0]
-        self_employed_encoded = encoders['Self_Employed'].transform([self_employed])[0]
+        try:
+            gender_encoded = encoders['Gender'].transform([gender])[0]
+            married_encoded = encoders['Married'].transform([married])[0]
+            education_encoded = encoders['Education'].transform([education])[0]
+            self_employed_encoded = encoders['Self_Employed'].transform([self_employed])[0]
+        except (KeyError, ValueError) as e:
+            return jsonify({
+                'success': False,
+                'error': f'Invalid category value: {str(e)}'
+            }), 400
         
         # Step 6c: Prepare the feature array for prediction
         # This should be in the same order as training data
@@ -110,14 +146,20 @@ def predict():
         ]])
         
         # Step 6d: Make prediction using the trained model
-        prediction = model.predict(features)[0]  # Get prediction (0 or 1)
-        probability = model.predict_proba(features)[0]  # Get probability scores
-        
-        # Step 6e: Decode the prediction back to original labels
-        prediction_label = le_target.inverse_transform([prediction])[0]
-        
-        # Get confidence score (probability of the predicted class)
-        confidence = max(probability) * 100
+        try:
+            prediction = model.predict(features)[0]  # Get prediction (0 or 1)
+            probability = model.predict_proba(features)[0]  # Get probability scores
+            
+            # Step 6e: Decode the prediction back to original labels
+            prediction_label = le_target.inverse_transform([prediction])[0]
+            
+            # Get confidence score (probability of the predicted class)
+            confidence = max(probability) * 100
+        except Exception as pred_error:
+            return jsonify({
+                'success': False,
+                'error': f'Prediction error: {str(pred_error)}'
+            }), 500
         
         # Create response
         response = {
